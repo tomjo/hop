@@ -195,7 +195,7 @@ public final class JdkHttpClientHttpLayer implements HttpLayer {
     try {
       HttpRequest request =
           requestBuilder
-              .PUT(BodyPublishers.ofByteArray(mapper.writeValueAsBytes(requestBody)))
+              .PUT(requestBody == null ? BodyPublishers.noBody() : BodyPublishers.ofByteArray(mapper.writeValueAsBytes(requestBody)))
               .build();
       HttpResponse<Void> response = client.send(request, BodyHandlers.discarding());
       int statusCode = response.statusCode();
